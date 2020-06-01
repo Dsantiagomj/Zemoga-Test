@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import Navbar from "./Navbar";
 import Card from "./Card";
+import Footer from "./Footer";
 import Container from "../Container";
 
 import BackgroundImage from "../../img/francis.png";
@@ -27,6 +28,7 @@ const HeaderComponent = () => (
       <Navbar />
       <Card />
     </Container>
+    <Footer />
   </Header>
 );
 
