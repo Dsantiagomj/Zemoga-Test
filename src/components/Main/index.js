@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Message from "./Message";
+import AddCelebrity from "./AddCelebrity";
 
 const Main = styled.main`
   margin: 0 auto;
@@ -13,6 +14,7 @@ const Main = styled.main`
 const MainComponent = () => (
   <Main>
     <Message />
+    <AddCelebrity />
   </Main>
 );
 
