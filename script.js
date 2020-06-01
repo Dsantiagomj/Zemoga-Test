@@ -29,7 +29,7 @@ const candidates = {
 
 Object.keys(candidates).forEach((key) => {
   axios
-    .post(`${process.env.REACT_APP_BASE_URL}/api/candidates`, candidates[key])
+    .post("http://localhost:3000/api/candidates", candidates[key])
     .then((response) => console.log("candidate registered", response.data.data))
     .catch((error) => console.error(error));
 });
