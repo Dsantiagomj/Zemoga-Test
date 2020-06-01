@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Navbar from "./Navbar";
+import Card from "./Card";
 import Container from "../Container";
 
 import BackgroundImage from "../../img/francis.png";
@@ -24,6 +25,7 @@ const HeaderComponent = () => (
   <Header>
     <Container>
       <Navbar />
+      <Card />
     </Container>
   </Header>
 );
