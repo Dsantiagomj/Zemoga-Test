@@ -3,9 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Rule of Thumb</title>
+    <link rel="stylesheet" href="src/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Home</h1>
+    <header class="header">
+      <div class="container">
+        <div class="navbar">
+          <nav class="navbar__section">
+            <div class="navbar__item navbar__item-brand">
+              <h1 class="navbar__title">Rule of Thumb</h1>
+            </div>
+          </nav>
+          <nav class="navbar__section navbar__section--right">
+            <div class="navbar__item">
+              <a class="navbar__link" href="./src/views/past-trials.html"
+                >Past Trials</a
+              >
+            </div>
+            <div class="navbar__item">
+              <a class="navbar__link" href="./src/views/how-it-works.html"
+                >How it works</a
+              >
+            </div>
+            <div class="navbar__item">
+              <a class="navbar__link" href="./src/views/login-signup.html"
+                >Log In/ Sign Up</a
+              >
+            </div>
+            <div class="navbar__item">
+              <a class="navbar__link" href="#">
+                <img
+                  class="navbar__icon search__image"
+                  src="public/assets/search.svg"
+                />
+              </a>
+            </div>
+          </nav>
+          <div id="burger" class="navbar__section navbar__section--toggle">
+            <img
+              class="navbar__icon burger__image"
+              src="public/assets/burger.svg"
+            />
+          </div>
+        </div>
+    </header>
   </body>
 </html>
