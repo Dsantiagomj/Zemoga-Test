@@ -1,0 +1,25 @@
+{
+  "name": "Zemoga-Test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon --inspect",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dsantiagomj/Zemoga-Test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dsantiagomj/Zemoga-Test/issues"
+  },
+  "homepage": "https://github.com/Dsantiagomj/Zemoga-Test#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
