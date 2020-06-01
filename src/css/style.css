@@ -31,7 +31,7 @@ a {
       rgba(255, 255, 255, 0) 0,
       rgba(0, 0, 0, 0.7) 100%
     ),
-    url(../../public/assets/francis.png);
+    url(../../assets/francis.png);
   background-repeat: no-repeat, no-repeat;
   background-size: 100% 8rem, cover;
   background-position: 0 0, center;
@@ -329,7 +329,7 @@ div.vote--dislike:hover {
 }
 
 .stars__card {
-  background-image: url(../../public/assets/kanye.png);
+  background-image: url(../../assets/kanye.png);
   background-position: right;
   background-size: cover;
   height: 34rem;
@@ -340,15 +340,15 @@ div.vote--dislike:hover {
 }
 
 .stars__card.card--2 {
-  background-image: url(../../public/assets/mark.png);
+  background-image: url(../../assets/mark.png);
 }
 
 .stars__card.card--3 {
-  background-image: url(../../public/assets/cristina.png);
+  background-image: url(../../assets/cristina.png);
 }
 
 .stars__card.card--4 {
-  background-image: url(../../public/assets/malala.png);
+  background-image: url(../../assets/malala.png);
 }
 
 /*Content of each star*/
@@ -569,7 +569,7 @@ div.vote--dislike:hover {
       rgba(255, 255, 255, 0.9),
       rgba(255, 255, 255, 0.9)
     ),
-    url(../../public/assets/people.png);
+    url(../../assets/people.png);
   background-size: auto, auto;
   display: flex;
   flex-direction: column;
