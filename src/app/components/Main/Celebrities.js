@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import styled from "styled-components";
 
@@ -27,47 +28,63 @@ const CardWrapper = styled.div`
 `;
 
 const Celebrities = () => {
-  const [data, setData] = useState(null);
+  const [candidates, setCandidates] = useState([]);
+  const [fetchedData, setFetcedhData] = useState(true);
 
   useEffect(() => {
-    const celebrities = getStorage();
-    if (celebrities) {
-      return setData(JSON.parse(celebrities));
-    } else {
-      setStorage(JSON.stringify(defaultData));
-      setData(defaultData);
-    }
-  }, []);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/candidates"
+        );
 
-  const handleVote = (id, typeOfVote) => {
-    if (typeOfVote === "positive") {
-      const newData = data.celebrities.map((celebrity) =>
-        celebrity.id === id
-          ? { ...celebrity, positiveVotes: celebrity.positiveVotes + 1 }
-          : celebrity
-      );
-      setStorage(JSON.stringify({ celebrities: [...newData] }));
-    } else if (typeOfVote === "negative") {
-      const newData = data.celebrities.map((celebrity) =>
-        celebrity.id === id
-          ? { ...celebrity, negativeVotes: celebrity.negativeVotes + 1 }
-          : celebrity
-      );
-      setStorage(JSON.stringify({ celebrities: [...newData] }));
+        // organize candidates
+        const candidates = [];
+        response.data.data.map((candidate) => {
+          switch (candidate.name) {
+            case "Kanye West":
+              return candidates.splice(0, 0, candidate);
+            case "Mark Zuckerberg":
+              return candidates.splice(1, 0, candidate);
+            case "Cristina Fernández de Kirchner":
+              return candidates.splice(2, 0, candidate);
+            case "Malala Yousafzai":
+              return candidates.splice(3, 0, candidate);
+          }
+        });
+
+        setCandidates(candidates);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    fetchData();
+    setFetcedhData(true);
+  }, [fetchedData]);
+
+  const handleVote = async (id, typeOfVote, positiveVotes, votes) => {
+    const payload = {
+      votes: votes + 1,
+      positiveVotes:
+        typeOfVote === "positive" ? positiveVotes + 1 : positiveVotes + 0,
+    };
+    try {
+      await axios.put(`http://localhost:3000/api/candidates/${id}`, payload);
+      setFetcedhData(false);
+    } catch (e) {
+      console.error(e);
     }
-    const updatedData = getStorage();
-    setData(JSON.parse(updatedData));
   };
 
   return (
     <Wrapper>
       <Title>Votes</Title>
       <CardWrapper>
-        {data &&
-          data.celebrities.map((celebrity) => (
+        {Boolean(candidates.length) &&
+          candidates.map((candidate) => (
             <Card
-              celebrity={celebrity}
-              key={celebrity.id}
+              celebrity={candidate}
+              key={candidate._id}
               handleVote={handleVote}
             />
           ))}

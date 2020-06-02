@@ -7,6 +7,11 @@ import Icon from "../Icon";
 
 import thumb from "../../img/like.svg";
 
+import kanye from "../../../public/assets/kanye.png";
+import mark from "../../../public/assets/mark.png";
+import cristina from "../../../public/assets/cristina.png";
+import malala from "../../../public/assets/malala.png";
+
 const Card = styled.div`
   background-image: url(${(props) => props.background});
   background-repeat: no-repeat, no-repeat;
@@ -118,13 +123,14 @@ const ResultsSection = styled.div`
 const PositiveResult = styled.div`
   align-items: center;
   background-color: rgba(28, 187, 180, 0.7);
-  display: flex;
+  display: ${(props) => (props.positiveBar ? "none" : "flex")};
   justify-content: flex-start;
   padding: 0 0.5rem;
   width: ${(props) => props.votingWidth}%;
 `;
 const NegativeResult = styled(PositiveResult)`
   background-color: rgba(255, 173, 29, 0.7);
+  display: ${(props) => (props.negativeBar ? "none" : "flex")};
   justify-content: flex-end;
 `;
 
@@ -136,15 +142,7 @@ const Percentage = styled.span`
 `;
 
 const CardComponent = ({
-  celebrity: {
-    id,
-    imageUrl,
-    fullName,
-    period,
-    category,
-    positiveVotes,
-    negativeVotes,
-  },
+  celebrity: { _id, category, name, positiveVotes, votes },
   handleVote,
 }) => {
   const [hasVoted, setHasVoted] = useState(false);
@@ -165,38 +163,58 @@ const CardComponent = ({
     if (activeButton) {
       setHasVoted(true);
       setActiveButton("");
-      handleVote(id, activeButton);
+      handleVote(_id, activeButton, positiveVotes, votes);
+    }
+  };
+
+  const getBackground = (name) => {
+    switch (name) {
+      case "Kanye West":
+        return kanye;
+      case "Mark Zuckerberg":
+        return mark;
+      case "Cristina Fernández de Kirchner":
+        return cristina;
+      case "Malala Yousafzai":
+        return malala;
     }
   };
 
   const votePercentage = (type) => {
     if (type === "positive") {
-      return Math.round(
-        (positiveVotes / (positiveVotes + negativeVotes)) * 100
-      );
+      if (votes) {
+        return Math.round((positiveVotes / votes) * 100);
+      } else {
+        return 50;
+      }
+    } else if (type === "negative") {
+      if (votes) {
+        return Math.round(((votes - positiveVotes) / votes) * 100);
+      } else {
+        return 50;
+      }
     }
-    return Math.round((negativeVotes / (positiveVotes + negativeVotes)) * 100);
   };
 
   return (
-    <Card background={imageUrl}>
-      <VotingStatus negativeStatus={positiveVotes < negativeVotes}>
+    <Card background={getBackground(name)}>
+      <VotingStatus negativeStatus={positiveVotes < votes / 2}>
         <Icon
           src={thumb}
           alt={
-            positiveVotes < negativeVotes
+            positiveVotes < votes / 2
               ? "Popularity under 50%"
               : "Popularity over 50%"
           }
           height="1.125rem"
           width="1.125rem"
-          reverse={positiveVotes < negativeVotes}
+          reverse={positiveVotes < votes / 2}
         />
       </VotingStatus>
       <CardContentWrapper>
-        <CardTitle>{fullName}</CardTitle>
+        <CardTitle>{name}</CardTitle>
         <CardPeriod>
-          {period} <CardCategory>in {category}</CardCategory>
+          1 month ago <CardCategory>in {category}</CardCategory>
         </CardPeriod>
         {hasVoted ? (
           <>
@@ -239,7 +257,10 @@ const CardComponent = ({
         )}
       </CardContentWrapper>
       <ResultsSection>
-        <PositiveResult votingWidth={votePercentage("positive")}>
+        <PositiveResult
+          votingWidth={votePercentage("positive")}
+          positiveBar={votes && !positiveVotes}
+        >
           <Icon
             src={thumb}
             alt="like button"
@@ -248,7 +269,10 @@ const CardComponent = ({
           />
           <Percentage>{votePercentage("positive")}%</Percentage>
         </PositiveResult>
-        <NegativeResult votingWidth={votePercentage("negative")}>
+        <NegativeResult
+          votingWidth={votePercentage("negative")}
+          negativeBar={votes === positiveVotes && votes !== 0}
+        >
           <Percentage>
             <Percentage>{votePercentage("negative")}%</Percentage>
           </Percentage>
